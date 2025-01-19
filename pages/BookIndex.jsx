@@ -30,7 +30,6 @@ export function BookIndex() {
     }
 
     function onSetFilter(filterByToEdit) {
-        console.log(filterByToEdit)
         setFilterBy(filterBy => ({ ...filterBy, ...filterByToEdit }))
     }
 

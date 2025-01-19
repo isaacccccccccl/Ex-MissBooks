@@ -86,7 +86,7 @@ function _getBooks() {
           "thumbnail": "http://coding-academy.org/books-photos/20.jpg",
           "language": "en",
           "listPrice": {
-            "amount": 109,
+            "amount": 160,
             "currencyCode": "EUR",
             "isOnSale": false
           }
