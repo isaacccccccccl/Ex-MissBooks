@@ -9,7 +9,6 @@ export const bookService = {
     get,
     remove,
     save,
-    getEmptybook,
     getDefaultFilter,
 }
 
@@ -52,7 +51,7 @@ function getDefaultFilter() {
 function _createbooks() {
     let books = loadFromStorage(BOOK_KEY)
     if (!books || !books.length) {
-        books = getBooks()
+        books = _getBooks()
         saveToStorage(BOOK_KEY, books)
     }
 }
@@ -63,9 +62,9 @@ function _createbooks() {
 //     return book
 // }
 
-function getBooks() {
+function _getBooks() {
 
-    return books = [
+    return [
         {
           "id": "OXeMG8wNskc",
           "title": "metus hendrerit",
