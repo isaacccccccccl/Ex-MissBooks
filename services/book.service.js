@@ -9,6 +9,7 @@ export const bookService = {
     get,
     remove,
     save,
+    getEmptybook,
     getDefaultFilter,
 }
 
@@ -18,6 +19,9 @@ function query(filterBy = {}) {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 books = books.filter(book => regExp.test(book.title))
+            }
+            if (filterBy.minPrice) {
+              books = books.filter((book1, book2) => book1.minPrice - book2.minPrice)
             }
             return books
         })
@@ -40,12 +44,12 @@ function save(book) {
     }
 }
 
-// function getEmptybook(vendor = '', speed = '') {
-//     return { vendor, speed }
-// }
+function getEmptybook(title = '', price = '') {
+    return { title, price }
+}
 
 function getDefaultFilter() {
-    return { txt: '', minSpeed: '' }
+    return { txt: '', minPrice: '' }
 }
 
 function _createbooks() {

@@ -14,3 +14,14 @@ a {
 img {
     max-width: 100%
 }
+
+button {
+    border-radius: 1rem;
+    border: none;
+    margin-left: 10px;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #a8a5a5;
+}
