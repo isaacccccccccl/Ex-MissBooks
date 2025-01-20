@@ -36,12 +36,18 @@ export function BookFilter({ filterBy, onSetFilter }) {
     return (
         <section className="book-filter">
             <h2>Filter Our Books</h2>
-            <form onSubmit={onSubmit}>
-                <label htmlFor="txt">title</label>
-                <input id="txt" name="txt" onChange={handleChange} value={txt} type="text" />
+            <form onSubmit={onSubmit} className="filter-form">
+                <section>
 
-                <label htmlFor="minPrice">Min Price</label>
-                <input id="minPrice" name="minPrice" onChange={handleChange} value={minPrice || ''} type="number" />
+                    <label htmlFor="txt">title</label>
+                    <input id="txt" name="txt" onChange={handleChange} value={txt} type="text" />
+                </section>
+                
+                <section>
+
+                    <label htmlFor="minPrice">Min Price</label>
+                    <input id="minPrice" name="minPrice" onChange={handleChange} value={minPrice || ''} type="number" />
+                </section>
 
                 <button>Submit</button>
             </form>

@@ -1,6 +1,13 @@
+.book-details {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(1fr, 1fr);
+    gap: 15px;
+}
+
 .image-container {
     position: relative;
-    display: inline-block;
+    margin-top: 10px;
 }
 
 .image-container img {
@@ -11,11 +18,10 @@
 .sale-sign {
     position: absolute;
     top: -10px;
-    /* left: -10px; */
-    background-color: rgb(255, 174, 0);
-    color: rgb(158, 124, 124);
+    background-color: var(--clr1);
+    color: var(--clr1bg);
     padding: 5px 10px;
-    font-size: 7px;
+    font-size: 10px;
     font-weight: bold;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

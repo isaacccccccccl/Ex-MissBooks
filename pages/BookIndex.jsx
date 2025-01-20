@@ -41,7 +41,6 @@ export function BookIndex() {
     const { txt, minPrice } = filterBy
     return (
         <section className="book-list">
-            <h1>book index</h1>
             {selectedBookId
                 ? <BookDetails onBack={() => onSetSelectedId(null)} bookId={selectedBookId} />
                 : <React.Fragment>
