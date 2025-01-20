@@ -64,6 +64,7 @@ export function BookEdit() {
             .then(savedBook => {
                 // console.log(savedBook)
                 navigate('/book')
+                showSuccessMsg('book Saved')
     })
     }
 

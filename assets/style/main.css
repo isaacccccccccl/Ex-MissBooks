@@ -4,6 +4,7 @@
 @import url(base/helpers.css);
 @import url(base/vars.css);
 @import url(base/layout.css);
+@import url(base/user-msg.css);
 
 /* cmps */
 @import url(cmps/app-header.css);

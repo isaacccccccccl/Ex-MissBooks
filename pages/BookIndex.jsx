@@ -25,8 +25,12 @@ export function BookIndex() {
         bookService.remove(bookId)
             .then(() => {
                 setBooks(books => books.filter(book => book.id !== bookId))
+                showSuccessMsg('Book Removed')
             })
-            .catch(err => console.log('problem removing book', err))
+            .catch(err => {
+                console.log('problem removing book', err)
+                showErrorMsg('Cannot Remove Book')
+    })
     }
 
     function onSetFilter(filterByToEdit) {

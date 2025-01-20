@@ -1,4 +1,5 @@
 import { AppHeader } from "./cmps/AppHeader.jsx"
+import { UserMsg } from "./cmps/UserMsg.jsx"
 import { About } from "./pages/About.jsx"
 import { BookDetails } from "./pages/BookDetails.jsx"
 import { BookIndex } from "./pages/BookIndex.jsx"
@@ -27,7 +28,7 @@ export function App() {
                         <Route path="/book/edit/:bookId" element={<BookEdit />}></Route>
                     </Routes>
                 </main>
-
+                <UserMsg />
             </section>
         </Router>
     )

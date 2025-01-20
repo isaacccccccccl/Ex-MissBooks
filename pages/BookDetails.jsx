@@ -1,5 +1,6 @@
 import { BookPreview } from "../cmps/BookPreview.jsx"
 import { LongTxt } from "../cmps/LongTxt.jsx"
+import { AddReview } from "../cmps/AddReview.jsx"
 import { bookService } from "../services/book.service.js"
 
 const { useState, useEffect } = React
