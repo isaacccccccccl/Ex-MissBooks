@@ -1,0 +1,15 @@
+.book-edit {
+    display: grid;
+    /* flex-direction: column; */
+    justify-content: center;
+}
+
+.book-edit > form:first-child {
+    margin-top: 10px;
+}
+
+input {
+    display: block;
+    margin-bottom: 10px;
+}
+

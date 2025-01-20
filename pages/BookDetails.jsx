@@ -10,8 +10,6 @@ export function BookDetails({ bookId, onBack }) {
     const [book, setBook] = useState(null)
     const year = new Date()
     const params = useParams()
-    console.log(params)
-
     const [priceColor, setPriceColor] = useState('')
 
     useEffect(() => {
@@ -22,7 +20,6 @@ export function BookDetails({ bookId, onBack }) {
         bookService.get(params.bookId)
             .then(loadBook => {
                 setBook(loadBook)
-                determinePriceColor(loadBook.listPrice.amount)
             })
             .catch(err => { console.log('problem with loading images', err) })
     }
@@ -34,11 +31,10 @@ export function BookDetails({ bookId, onBack }) {
         else if (book.pageCount < 100) return 'Short Story'
     }
 
-    function determinePriceColor(price) {
-        if (price > 30) setPriceColor('red')
-        else if (price < 20) setPriceColor('green')
-        else setPriceColor('')
-
+    function determinePriceColor() {
+        if (book.listPrice.amount > 150) return 'red'
+        else if (book.listPrice.amount < 20) return 'green'
+        else return ''
     }
     if (!book) return <div>loading...</div>
     
@@ -52,7 +48,7 @@ export function BookDetails({ bookId, onBack }) {
             </div>
             <div className="book-detail-container">
                 <h2>title: {title}</h2>
-                <h3>price: {listPrice.amount}</h3>
+                <h3>price: <span className={determinePriceColor()}>{listPrice.amount}</span></h3>
                 <h3>{pageCount()}</h3>
                 <h3>{(year.getFullYear() - book.publishedDate > 10) ? 'Vintage' : 'New'}</h3>
                 <LongTxt txt={book.description} />

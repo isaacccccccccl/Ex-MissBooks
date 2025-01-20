@@ -4,6 +4,7 @@ import { BookDetails } from "../pages/BookDetails.jsx"
 import { bookService } from "../services/book.service.js"
 
 const { useState, useEffect } = React
+const { Link } = ReactRouterDOM
 
 export function BookIndex() {
 
@@ -36,9 +37,13 @@ export function BookIndex() {
     const { txt, minPrice } = filterBy
     return (
         <section className="book-list">
+
             {
                 <React.Fragment>
                     <BookFilter filterBy={{ txt, minPrice }} onSetFilter={onSetFilter} />
+                    <button>
+                        <Link to={`/book/edit`}>Add Book</Link>
+                    </button>
                     <BookList
                         BookList books={books}
                         onRemoveBook={onRemoveBooks} />

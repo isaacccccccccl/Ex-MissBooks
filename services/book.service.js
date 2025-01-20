@@ -9,7 +9,7 @@ export const bookService = {
     get,
     remove,
     save,
-    getEmptybook,
+    getEmptyBook,
     getDefaultFilter,
 }
 
@@ -44,8 +44,8 @@ function save(book) {
     }
 }
 
-function getEmptybook(title = '', price = '') {
-    return { title, price }
+function getEmptyBook(title = '', amount = '') {
+    return { title, listPrice: {amount} }
 }
 
 function getDefaultFilter() {
