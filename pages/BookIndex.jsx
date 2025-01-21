@@ -27,7 +27,9 @@ export function BookIndex() {
         bookService.remove(bookId)
             .then(() => {
                 setBooks(prevBooks => prevBooks.filter(book => book.id !== bookId))
+                showSuccessMsg('Book has been successfully removed!')
             })
+            .catch(() => showErrorMsg(`couldn't remove book`)) 
     }
 
     if (!books) return <div>Loading.....</div>

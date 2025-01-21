@@ -2,7 +2,7 @@ import { loadFromStorage, makeId, saveToStorage } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
 const BOOK_KEY = 'bookDB'
-_createbooks()
+_createBooks()
 
 export const bookService = {
   query,
@@ -11,6 +11,10 @@ export const bookService = {
   save,
   getEmptyBook,
   getDefaultFilter,
+  saveReview,
+  getEmptyReview,
+  removeReview,
+  getDefaultReview,
 }
 
 function query(filterBy = {}) {
@@ -53,12 +57,36 @@ function getDefaultFilter() {
   return { txt: '', minPrice: '' }
 }
 
-function _createbooks() {
-  let books = loadFromStorage(BOOK_KEY)
-  if (!books || !books.length) {
-    books = _getBooks()
-    saveToStorage(BOOK_KEY, books)
+function _createBooks() {
+  const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
+  const books = utilService.loadFromStorage(BOOK_KEY) || []
+
+  if (books && books.length) return
+
+  for (let i = 0; i < 20; i++) {
+    const book = {
+      id: utilService.makeId(),
+      title: utilService.makeLorem(2),
+      subtitle: utilService.makeLorem(4),
+      authors: [
+        utilService.makeLorem(1)
+      ],
+      publishedDate: utilService.getRandomIntInclusive(1950, 2024),
+      description: utilService.makeLorem(20),
+      pageCount: utilService.getRandomIntInclusive(20, 600),
+      categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
+      thumbnail: `/assets/booksImages/${i + 1}.jpg`,
+      language: "en",
+      listPrice: {
+        amount: utilService.getRandomIntInclusive(80, 500),
+        currencyCode: "EUR",
+        isOnSale: Math.random() > 0.7
+      },
+      reviews: []
+    }
+    books.push(book)
   }
+  utilService.saveToStorage(BOOK_KEY, books)
 }
 
 function _getBooks() {
@@ -130,4 +158,49 @@ function _getBooks() {
         "isOnSale": false
       }
     }]
+}
+
+function saveReview(bookId, reviewToSave) {
+  return get(bookId).then(book => {
+    const review = _createReview(reviewToSave)
+    book.reviews.unshift(review)
+    return save(book).then(() => review)
+  })
+}
+
+function getEmptyReview() {
+  return {
+    fullName: 'new name',
+    rating: 0,
+    date: new Date().toISOString().slice(0, 10),
+    txt: '',
+    selected: 0,
+  }
+}
+
+function removeReview(bookId, reviewId) {
+  return get(bookId).then(book => {
+    const newReviews = book.reviews.filter((review) => review.id !== reviewId)
+    book.reviews = newReviews
+    return save(book)
+  })
+}
+
+function getDefaultReview() {
+
+  return {
+      fullName: 'new name',
+      rating: 0,
+      date: new Date().toISOString().slice(0, 10),
+      txt: '',
+      selected: 0,
+  }
+
+}
+
+function _createReview(reviewToSave) {
+  return {
+      id: utilService.makeId(),
+      ...reviewToSave,
+  }
 }
