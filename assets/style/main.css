@@ -8,9 +8,8 @@
 
 /* cmps */
 @import url(cmps/app-header.css);
-@import url(cmps/cards.css);
-/* @import url(cmps/book-price.css); */
+@import url(cmps/book-list.css);
+@import url(cmps/book-details.css);
+@import url(cmps/book-filter.css);
 @import url(cmps/book-preview.css);
-@import url(cmps/sale-sign.css);
-@import url(cmps/filter.css);
-@import url(cmps/book-edit.css);
+

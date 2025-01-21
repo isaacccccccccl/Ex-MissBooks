@@ -1,14 +1,16 @@
-.cards {
+.book-list {
     list-style: none;
     padding: 15px 0 0;
+
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
+    
     background-color: #0065a3;
     padding-bottom: 15px;
 }
 
-.cards li {
+.book-list li {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -16,7 +18,7 @@
     text-align: center;
 }
 
-.cards h2{
+.book-list h2{
     margin: 0;
     font-size: 1rem;
 }

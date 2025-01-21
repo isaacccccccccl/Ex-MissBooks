@@ -1,58 +1,40 @@
+
+import { bookService } from "../services/book.service.js"
 import { BookList } from "../cmps/BookList.jsx"
 import { BookFilter } from "../cmps/BookFilter.jsx"
-import { BookDetails } from "../pages/BookDetails.jsx"
-import { bookService } from "../services/book.service.js"
 
-const { useState, useEffect } = React
-const { Link } = ReactRouterDOM
+const {useState, useEffect} = React
 
 export function BookIndex() {
 
     const [books, setBooks] = useState(null)
     const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
 
-    useEffect(() => {
+    useEffect( () => {
         loadBooks()
     }, [filterBy])
 
     function loadBooks() {
         bookService.query(filterBy)
             .then(setBooks)
-            .catch(err => { console.log('problem with loading images', err) })
     }
 
-    function onRemoveBooks(bookId) {
+    function onSetFilterBy(newFilter) {
+        setFilterBy(prevFilter => ({...prevFilter, ...newFilter}))
+    }
+
+    function onRemoveBook(bookId) {
         bookService.remove(bookId)
             .then(() => {
-                setBooks(books => books.filter(book => book.id !== bookId))
-                showSuccessMsg('Book Removed')
+                setBooks(prevBooks => prevBooks.filter(book => book.id !== bookId))
             })
-            .catch(err => {
-                console.log('problem removing book', err)
-                showErrorMsg('Cannot Remove Book')
-    })
     }
 
-    function onSetFilter(filterByToEdit) {
-        setFilterBy(filterBy => ({ ...filterBy, ...filterByToEdit }))
-    }
-
-    if (!books) return <div>loading...</div>
-    const { txt, minPrice } = filterBy
+    if (!books) return <div>Loading.....</div>
     return (
-        <section className="book-list">
-
-            {
-                <React.Fragment>
-                    <BookFilter filterBy={{ txt, minPrice }} onSetFilter={onSetFilter} />
-                    <button>
-                        <Link to={`/book/edit`}>Add Book</Link>
-                    </button>
-                    <BookList
-                        BookList books={books}
-                        onRemoveBook={onRemoveBooks} />
-                </React.Fragment>
-            }
+        <section className="Book-index">
+            <BookFilter filterBy={filterBy} onFilterBy={onSetFilterBy}/>
+            <BookList books={books} onRemoveBook={onRemoveBook}/>
         </section>
     )
 }

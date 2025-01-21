@@ -1,22 +1,21 @@
-import { bookService } from "../services/book.service.js"
+import { utilService } from "../services/util.service.js"
+const { useState, useEffect, useRef } = React
 
-const { useState, useEffect } = React
+export function BookFilter({ filterBy, onFilterBy }) {
+    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+    console.log(filterBy)
 
-
-export function BookFilter({ filterBy, onSetFilter }) {
-    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
-
-    useEffect(() => {
-        onSetFilter(filterByToEdit)
+    useEffect( () => {
+        onFilterBy(filterByToEdit)
     }, [filterByToEdit])
 
     function onSubmit(ev) {
         ev.preventDefault()
-        console.log('Submit filter')
-        onSetFilter(filterByToEdit)
+        onFilterBy(filterByToEdit)
     }
 
     function handleChange({ target }) {
+        console.log(target.value)
         const field = target.name
         let value = target.value
 
@@ -29,28 +28,28 @@ export function BookFilter({ filterBy, onSetFilter }) {
             default:
                 break;
         }
-        setFilterByToEdit(filterBy => ({ ...filterBy, [field]: value }))
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
 
-    const { txt, minPrice } = filterByToEdit
+    
+
     return (
         <section className="book-filter">
-            <h2>Filter Our Books</h2>
-            <form onSubmit={onSubmit} className="filter-form">
+            <h1>Filter</h1>
+            <form className="filter-form" onSubmit={onSubmit}>
                 <section>
-
                     <label htmlFor="txt">title</label>
-                    <input id="txt" name="txt" onChange={handleChange} value={txt} type="text" />
+                    <input type="text" name="txt" id="txt" value={filterByToEdit.txt} onChange={handleChange} />
                 </section>
-                
-                <section>
 
-                    <label htmlFor="minPrice">Min Price</label>
-                    <input id="minPrice" name="minPrice" onChange={handleChange} value={minPrice || ''} type="number" />
+                <section>
+                    <label htmlFor="price">minPrice</label>
+                    <input type="number" name="minPrice" id="price" value={filterByToEdit.minPrice} onChange={handleChange}/>
                 </section>
 
                 <button>Submit</button>
             </form>
+
         </section>
     )
 }

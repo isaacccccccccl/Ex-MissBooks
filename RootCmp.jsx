@@ -1,9 +1,9 @@
 import { AppHeader } from "./cmps/AppHeader.jsx"
-import { UserMsg } from "./cmps/UserMsg.jsx"
+// import { UserMsg } from "./cmps/UserMsg.jsx"
 import { About } from "./pages/About.jsx"
 import { BookDetails } from "./pages/BookDetails.jsx"
 import { BookIndex } from "./pages/BookIndex.jsx"
-import { BookEdit } from "./pages/BookEdit.jsx"
+// import { BookEdit } from "./pages/BookEdit.jsx"
 import { Home } from "./pages/Home.jsx"
 
 
@@ -24,11 +24,11 @@ export function App() {
                         <Route path="/about" element={<About />}></Route>
                         <Route path="/book" element={<BookIndex />}></Route>
                         <Route path="/book/:bookId" element={<BookDetails />}></Route>
-                        <Route path="/book/edit" element={<BookEdit />}></Route>
-                        <Route path="/book/edit/:bookId" element={<BookEdit />}></Route>
+                        {/* <Route path="/book/edit" element={<BookEdit />}></Route> */}
+                        {/* <Route path="/book/edit/:bookId" element={<BookEdit />}></Route> */}
                     </Routes>
                 </main>
-                <UserMsg />
+                {/* <UserMsg /> */}
             </section>
         </Router>
     )

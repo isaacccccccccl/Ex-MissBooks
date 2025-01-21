@@ -1,4 +1,7 @@
 .app-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     background-color: var(--clr1);
     color: var(--clr1bg-light);
     padding-block: 0.75em;
@@ -7,4 +10,5 @@
 .app-header .app-nav {
     display: flex;
     gap: 15px;
+    align-self: center;
 }

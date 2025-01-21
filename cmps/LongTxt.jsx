@@ -1,21 +1,24 @@
-
 const { useState } = React
 
-export function LongTxt({txt, leng=100}) {
-    const [isExpanded, setIsExpanded] = useState(false)
+export function LongTxt({ txt, length = 100 }) {
+    const [isShowLong, setIsShowLong] = useState(false)
 
-    function toggle() {
-        setIsExpanded(prevState => !prevState)
+    function onToggleIsShowLong() {
+        setIsShowLong(isShowLong => !isShowLong)
     }
 
-    if (txt.length < leng) return <div>{txt}</div>
-    const displayText = isExpanded ? txt : txt.slice(0, leng)
-    return(
-        <section>
-            <div>{displayText}</div>
-            <button onClick={toggle}>
-                {isExpanded ? "Read less" : "Read more"}
-            </button>
+    const isLongText = txt.length > length
+    const textToShow = (isShowLong || !isLongText) ? txt : (txt.substring(0, length)) + '...'
+    return (
+        <section className="long-txt">
+                <p className="txt">{textToShow}</p>
+                {isLongText &&
+                    <div>
+                        <button className="show-txt-btn" onClick={onToggleIsShowLong}>
+                            {isShowLong ? 'Show Less' : 'Read More'}
+                        </button>
+                    </div>
+                }
         </section>
-    )
+    );
 }

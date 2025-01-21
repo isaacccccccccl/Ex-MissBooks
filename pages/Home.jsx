@@ -1,10 +1,11 @@
 
+
 export function Home() {
 
     return (
         <section className="home">
-            <h1 >Book's R Us!</h1>
-            <img src="../assets/BooksImages/1.jpg" alt="hero-image" />
+
+            <p>Welcome to Miss Books where you can find a new book to read</p>
         </section>
     )
 }

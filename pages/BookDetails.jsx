@@ -1,28 +1,22 @@
-import { BookPreview } from "../cmps/BookPreview.jsx"
-import { LongTxt } from "../cmps/LongTxt.jsx"
-import { AddReview } from "../cmps/AddReview.jsx"
 import { bookService } from "../services/book.service.js"
+import { LongTxt } from "../cmps/LongTxt.jsx"
 
-const { useState, useEffect } = React
-const {useParams, Link} = ReactRouterDOM
+const {useState, useEffect} = React
+const { useParams, useNavigate } = ReactRouter
+const { Link } = ReactRouterDOM
 
-export function BookDetails({ bookId, onBack }) {
-
+export function BookDetails() {
     const [book, setBook] = useState(null)
-    const year = new Date()
     const params = useParams()
-    const [priceColor, setPriceColor] = useState('')
+    const year = new Date()
 
     useEffect(() => {
-        loadBooks()
+        loadBook()
     }, [params.bookId])
 
-    function loadBooks() {
+    function loadBook() {
         bookService.get(params.bookId)
-            .then(loadBook => {
-                setBook(loadBook)
-            })
-            .catch(err => { console.log('problem with loading images', err) })
+            .then(setBook)
     }
 
     function pageCount() {
@@ -37,27 +31,28 @@ export function BookDetails({ bookId, onBack }) {
         else if (book.listPrice.amount < 20) return 'green'
         else return ''
     }
-    if (!book) return <div>loading...</div>
-    
-    const isOn = book.listPrice.isOnSale ? 'sale-sign' : ''
-    const { title, thumbnail, listPrice } = book
-    return (
-        <section className="book-details">
-            <div className={`image-container`}>
-                {isOn && <div  className={isOn}>On Sale</div>}
-                <img src={thumbnail} alt=""/>
-            </div>
-            <div className="book-detail-container">
-                <h2>title: {title}</h2>
-                <h3>price: <span className={determinePriceColor()}>{listPrice.amount}</span></h3>
-                <h3>{pageCount()}</h3>
-                <h3>{(year.getFullYear() - book.publishedDate > 10) ? 'Vintage' : 'New'}</h3>
-                <LongTxt txt={book.description} />
-                <button>
-                    <Link to={`/book`}>Back</Link>
-                </button>
 
-            </div>
+    if (!book) return <div>loadng...</div>
+    const isOn = book.listPrice.isOnSale ? 'sale-sign' : ''
+    const {title, id, thumbnail, description, authors, listPrice, publishedDate} = book
+    return (
+        <section>
+        <section className="book-details">
+        <div className={`image-container`}>
+                    {isOn && <div className={isOn}>On Sale</div>}
+                    <img src={thumbnail} alt="" />
+                </div>
+            <section className="details-info">
+                <h1>{title}</h1>
+                <h1>price: <span className={determinePriceColor()}>{listPrice.amount} {listPrice.currencyCode}</span></h1>
+                <h1>  {pageCount()}</h1>
+                <h1>author: {authors}</h1>
+                <h1>published Year: {publishedDate}, {(year.getFullYear() - book.publishedDate > 10) ? 'Vintage' : 'New'}</h1>
+                <LongTxt txt={book.description} />
+            </section>
         </section>
-    )
+            <Link to={`/book`}><button>Back</button></Link>
+
+        </section>
+    )    
 }
